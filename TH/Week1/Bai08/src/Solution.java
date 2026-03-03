@@ -1,0 +1,19 @@
+public class Solution {
+    public int reverse(int n) {
+        int m = 0;
+        while(n > 0) {
+            m = m * 10 + n % 10;
+            n /= 10;
+        }
+        return m;
+    }
+
+    public boolean isPalindrome(int n) {
+        return reverse(n) == n;
+    }
+
+    public static void main(String[] args) {
+        Solution Main = new Solution();
+        System.out.println(Main.isPalindrome(1221));
+    }
+}
