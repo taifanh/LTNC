@@ -1,0 +1,35 @@
+class Animal {
+    public void makeSound() {
+        System.out.println("Animal sound");
+    }
+}
+
+class Dog extends Animal {
+    public void makeSound() {
+        System.out.println("Woof woof");
+    }
+}
+
+class Cat extends Animal {
+    public void makeSound() {
+        System.out.println("Meows meows");
+    }
+}
+
+class Duck extends Animal {
+    
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Animal a = new Dog();
+        // Animal a = new Cat();
+        if(a instanceof Cat) {
+            Cat c = (Cat) a;
+            c.makeSound();
+        }
+        else {
+            System.out.println("Not a cat");
+        }
+    }
+}
