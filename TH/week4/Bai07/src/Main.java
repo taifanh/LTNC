@@ -1,7 +1,7 @@
-import java.util.*;
+import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.List;
 
-// Bước 3: Tạo Custom Functional Interface
-@FunctionalInterface
 interface Operation<T> {
     T execute(T a, T b);
 }
@@ -20,7 +20,6 @@ class Student {
     public String getName() { return name; }
     public double getGpa() { return gpa; }
 
-    @Override
     public String toString() {
         return id + " " + name + " " + gpa;
     }
@@ -28,37 +27,27 @@ class Student {
 
 public class Main {
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+        Scanner input = new Scanner(System.in);
         List<Student> students = new ArrayList<>();
 
-        int n = Integer.parseInt(sc.nextLine());
-        for (int i = 0; i < n; i++) {
-            String id = sc.next();
-            String name = sc.next();
-            double gpa = sc.nextDouble();
+        int n = input.nextInt();
+        while(n-- > 0) {
+            String id = input.next();
+            String name = input.next();
+            double gpa = input.nextDouble();
+
             students.add(new Student(id, name, gpa));
         }
 
-        // 1. Filter: Xóa sinh viên có GPA < 5.0 sử dụng Lambda
         students.removeIf(student -> student.getGpa() < 5.0);
-        
-        System.out.println("\nAfter removing GPA < 5.0:");
-        students.forEach(System.out::println);
+        System.out.println("After removing GPA < 5.0:");
+        students.forEach(student -> System.out.println(student));
 
-        // 2. Sort: Sắp xếp theo tên sử dụng Lambda
-        students.sort((s1, s2) -> s1.getName().compareTo(s2.getName()));
+        students.sort((a, b) -> a.getName().compareTo(b.getName()));
+        System.out.println("After sorting by name:");
+        students.forEach(student -> System.out.println(student));
 
-        System.out.println("\nAfter sorting by name:");
-        students.forEach(System.out::println);
-
-        // 3. Custom Functional Interface: Cộng, Trừ, Nhân, Chia
-        Operation<Double> add = (a, b) -> a + b;
-        Operation<Double> subtract = (a, b) -> a - b;
-        Operation<Double> multiply = (a, b) -> a * b;
-        Operation<Double> divide = (a, b) -> a / b;
-
-        System.out.println("\nCustom Operation Test (Add 10 + 5): " + add.execute(10.0, 5.0));
-        
-        sc.close();
+        Operation<Integer> add = (a, b) -> a + b;
+        System.out.println(add.execute(10, 20));
     }
 }
